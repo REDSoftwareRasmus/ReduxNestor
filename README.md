@@ -1,15 +1,10 @@
 <h1 align="center">Redux Nestor</h1>
-
 <div align="center">
 
-[![Build Status](https://img.shields.io/travis/redux-orm/redux-orm.svg?style=flat-square)](https://travis-ci.org/redux-orm/redux-orm)
-[![Codacy Grade](https://img.shields.io/codacy/grade/d3ad7e3bd8264012953df9d1967bedaa.svg?style=flat-square)](https://www.codacy.com/app/redux-orm/redux-orm?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=redux-orm/redux-orm&amp;utm_campaign=Badge_Grade)
-[![Coverage Status](https://img.shields.io/codecov/c/github/redux-orm/redux-orm/master.svg?style=flat-square)](https://codecov.io/gh/redux-orm/redux-orm/branch/master)
-[![NPM package](https://img.shields.io/npm/v/redux-orm.svg?style=flat-square)](https://www.npmjs.com/package/redux-orm)
-![GitHub Release Date](https://img.shields.io/github/release-date/redux-orm/redux-orm.svg?style=flat-square)
-[![NPM downloads](https://img.shields.io/npm/dm/redux-orm.svg?style=flat-square)](https://www.npmjs.com/package/redux-orm)
-[![Gitter](https://badges.gitter.im/redux-orm/Lobby.svg?style=flat-square)](https://gitter.im/redux-orm/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-![NPM license](https://img.shields.io/npm/l/redux-orm.svg?style=flat-square)
+[![Build Status](https://img.shields.io/circleci/build/github/REDSoftwareRasmus/ReduxNestor)](https://app.circleci.com/pipelines/github/REDSoftwareRasmus/ReduxNestor)
+[![NPM package](https://img.shields.io/npm/v/redux-nestor.svg?style=flat-square)](https://www.npmjs.com/package/redux-nestor)
+![GitHub Release Date](https://img.shields.io/github/release-date/redux-nestor/redux-nestor.svg?style=flat-square)
+![NPM license](https://img.shields.io/npm/l/redux-nestor.svg?style=flat-square)
 </div>
 
 ## What 
@@ -18,31 +13,15 @@ A Redux wrapper lib for fetching, normalizing and instantiating a ReduxORM store
 ## Installation
 
 ```bash
-npm install redux-orm --save
+npm install redux-nestor --save
 ```
-
-Or with a script tag exposing a global called `ReduxOrm`:
-
-```html
-<script src="https://unpkg.com/redux-orm/dist/redux-orm.min.js"></script>
+or
+```bash
+yarn add redux-nestor
 ```
-
-* [Latest browser build (minimized)](https://unpkg.com/redux-orm/dist/redux-orm.min.js)
-  * [Source Map](https://unpkg.com/redux-orm/dist/redux-orm.min.js.map)
-
-* [Latest browser build](https://unpkg.com/redux-orm/dist/redux-orm.js) (only use if size does not matter)
-
 ### Polyfill
 
-Redux-ORM uses some ES2015+ features, such as `Set`. If you are using Redux-ORM in a pre-ES2015+ environment, you should load a polyfill like [`babel-polyfill`](https://babeljs.io/docs/usage/polyfill/) before using Redux-ORM.
-
-### Extensions
-
-* [`redux-orm-proptypes`](https://github.com/tommikaikkonen/redux-orm-proptypes): React PropTypes validation and defaultProps mixin for Redux-ORM Models
-
-## Usage
-
-For a detailed walkthrough see [a guide to creating a simple app with Redux-ORM](https://github.com/tommikaikkonen/redux-orm-primer). Its not up-to-date yet but the [code has a branch for version 0.9](https://github.com/tommikaikkonen/redux-orm-primer/tree/migrate_to_0_9). The Redux docs have a [short section](https://redux.js.org/recipes/structuring-reducers/updating-normalized-data#redux-orm) on Redux-ORM as well.
+Redux Nestor uses some ES2015+ features, such as `Set`. If you are using Redux-ORM in a pre-ES2015+ environment, you should load a polyfill like [`babel-polyfill`](https://babeljs.io/docs/usage/polyfill/) before using Redux-ORM.
 
 ### Declare Your Models
 
