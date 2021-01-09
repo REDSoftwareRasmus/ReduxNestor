@@ -1,1 +1,1 @@
-export declare const initial = "Initial export";
+export declare const initial = "initial export";
