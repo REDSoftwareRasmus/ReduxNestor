@@ -1,14 +1,39 @@
+import { schema } from "normalizr";
+
 import { 
-    getNormalizerSchema,
+    getEntity,
     normalizeRaw,
-    normalizeWithSchema
+    normalizeWithEntity
 } from "../src/normalizer";
 
 
 
 describe("Test normalize schema formatting", () => {
 
-    const testSchema: object = {
+    // Construct Normalizr Entity with manual approach
+    const organisation = new schema.Entity("organisation")
+    const user = new schema.Entity("user", {
+        organisation: organisation
+    })
+    const comment = new schema.Entity("comment", {
+        user: user
+    })
+    const completion = new schema.Entity("completion", {
+        user: user
+    })
+    const geoData = new schema.Entity("geoData", {
+        addedBy: user,
+        intClosed: completion,
+        extClosed: completion,
+        comments: [comment]
+    })
+    const normalizrTestEntity = new schema.Entity("project", {
+        geoData: [geoData],
+        organisation: organisation
+    })
+
+    // Construct Nestor schema
+    const testSchema = {
         models: {
             organisation: {},
             user: {
@@ -27,15 +52,17 @@ describe("Test normalize schema formatting", () => {
                 comments: ["comment"]
             },
             project: {
-                geoData: "geoData",
+                geoData: ["geoData"],
                 organisation: "organisation"
             }
         },
         type: "project"
     }
 
-    test("Instantiate test ")
-
+    test("Generate normalizer entity ", () => {
+        const generatedEntity = getEntity(testSchema)
+        expect(generatedEntity).toEqual(generatedEntity);
+    })
 })
 
 
