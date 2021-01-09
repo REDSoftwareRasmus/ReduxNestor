@@ -1,10 +1,23 @@
 {
-  "name": "ReduxNestor",
+  "name": "redux-nestor",
   "version": "1.0.0",
   "description": "A Redux wrapper lib for fetching, normalizing and instantiating a ReduxORM store from nested API responses.",
   "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: No test specified\" && exit 1",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json"
+  },
   "repository": "https://github.com/REDSoftwareRasmus/ReduxNestor.git",
   "author": "Rasmus Englund <webdev@redge.se>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "files": ["lib/**/*"],
+  "devDependencies": {
+    "prettier": "^2.2.1",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.1.3"
+  }
 }
