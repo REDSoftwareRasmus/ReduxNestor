@@ -4,7 +4,8 @@
   "description": "A Redux wrapper lib for fetching, normalizing and instantiating a ReduxORM store from nested API responses.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: No test specified\" && exit 1",
+    "test": "jest --config jest.config.json",
+    "test:watch": "jest --config --watch jest.config.json",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json"
