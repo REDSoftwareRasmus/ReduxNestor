@@ -1,1 +1,1 @@
-export const initial = 'Initial export';
+export const initial = 'initial export';
