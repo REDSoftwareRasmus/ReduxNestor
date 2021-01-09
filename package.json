@@ -1,0 +1,10 @@
+{
+  "name": "ReduxNestor",
+  "version": "1.0.0",
+  "description": "A Redux wrapper lib for fetching, normalizing and instantiating a ReduxORM store from nested API responses.",
+  "main": "index.js",
+  "repository": "https://github.com/REDSoftwareRasmus/ReduxNestor.git",
+  "author": "Rasmus Englund <webdev@redge.se>",
+  "license": "MIT",
+  "private": false
+}
