@@ -1,30 +1,14 @@
 import { Model, ORM, OrmState, ORMReducer } from "redux-orm";
 import { IndexedModelClasses } from "redux-orm/ORM";
-import { schema as NormalizrSchema } from "normalizr";
 import { Store } from "redux";
 
-// nestor.schema
+import { NormalizedResult, NormalizeEntity } from "./normalizer";
 
-// nestor .normalize
-
-// nestor .getORM
-
-// nestor .fill
-
-// nestor .getReducer
-
-// nestor .getStore
 
 export interface ResponseEntity {
     key: string;
     schema: object;
 }
-
-export interface NormalizedResult {
-    result: any;
-    entities: NormalizrSchema.Entity;
-} 
-
 export interface EntityModelMap {
     [key: string]: Model;
 }
@@ -54,9 +38,11 @@ export default class Nestor implements INestor {
         return orm.getEmptyState()
     }
 
-    static createSchema(s: object): NormalizrSchema.Entity {}
+    static createSchema(s: object): NormalizeEntity {}
 
-    static normalize(schema: NormalizrSchema.Entity | NormalizrSchema.Entity[]): NormalizedResult {}
+    static normalize(data: object, schema: NormalizeEntity | NormalizeEntity[]): NormalizedResult {
+
+    }
 
     static getORM<I extends IndexedModelClasses>(models: Model[], reducerKey?: string): ORM<I> {}
 

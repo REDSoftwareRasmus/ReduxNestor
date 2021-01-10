@@ -21,7 +21,7 @@ export interface NestorSchema {
 
 export function getEntity(raw: NestorSchema): Entity {
     
-    const models: {[key: string]: Entity} = {};
+    const models: {[key: string]: NormalizerSchema.Entity} = {};
     for (const [modelName, depModels] of Object.entries(raw.models)) {
         const deps: {[key: string]: Entity | Entity[]} = {};
         if (Object.keys(depModels).length !== 0) {

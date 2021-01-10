@@ -7,6 +7,7 @@
   "scripts": {
     "test": "jest --config jest.config.json",
     "test:watch": "jest --config --watch jest.config.json",
+    "test:verbose": "jest --verbose",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",

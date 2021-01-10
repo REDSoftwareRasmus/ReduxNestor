@@ -1,67 +1,57 @@
-import { schema } from "normalizr";
-
 import { 
     getEntity,
     normalizeRaw,
     normalizeWithEntity
 } from "../src/normalizer";
 
+import { 
+    testNestorSchema,
+    normalizrTestEntity,
+    testAPIResponse
+} from "./testdata";
 
+const util = require("util");
 
-describe("Test normalize schema formatting", () => {
-
-    // Construct Normalizr Entity with manual approach
-    const organisation = new schema.Entity("organisation")
-    const user = new schema.Entity("user", {
-        organisation: organisation
-    })
-    const comment = new schema.Entity("comment", {
-        user: user
-    })
-    const completion = new schema.Entity("completion", {
-        user: user
-    })
-    const geoData = new schema.Entity("geoData", {
-        addedBy: user,
-        intClosed: completion,
-        extClosed: completion,
-        comments: [comment]
-    })
-    const normalizrTestEntity = new schema.Entity("project", {
-        geoData: [geoData],
-        organisation: organisation
-    })
-
-    // Construct Nestor schema
-    const testSchema = {
-        models: {
-            organisation: {},
-            user: {
-                organisation: "organisation"
-            },
-            comment: {
-                user: "user"
-            },
-            completion: {
-                user: "user"
-            },
-            geoData: {
-                addedBy: "user",
-                intClose: "completion",
-                extClosed: "completion",
-                comments: ["comment"]
-            },
-            project: {
-                geoData: ["geoData"],
-                organisation: "organisation"
-            }
-        },
-        type: "project"
-    }
+describe("Normalizer test", () => {
 
     test("Generate normalizer entity ", () => {
-        const generatedEntity = getEntity(testSchema)
-        expect(generatedEntity).toEqual(generatedEntity);
+        const generatedEntity = getEntity(testNestorSchema)
+        const a = util.inspect(generatedEntity, false, null, true)
+        const b = util.inspect(normalizrTestEntity, false, null, true)
+        expect(a).toMatch(b);
+    })
+
+    test("Normalize with Entity", () => {
+        const generatedEntity = getEntity(testNestorSchema)
+        
+        // Test with single entity
+        var normalizedWGeneratedEntity = normalizeWithEntity(testAPIResponse, generatedEntity);
+        var normalizedWNormalizrEntity = normalizeWithEntity(testAPIResponse, normalizrTestEntity);
+
+        expect(normalizedWGeneratedEntity).toEqual(normalizedWNormalizrEntity);
+
+        // Test with array of entities
+        normalizedWGeneratedEntity = normalizeWithEntity(testAPIResponse, [generatedEntity]);
+        normalizedWNormalizrEntity = normalizeWithEntity(testAPIResponse, [normalizrTestEntity]);
+
+        expect(normalizedWGeneratedEntity).toEqual(normalizedWNormalizrEntity);
+    })
+
+    test("Normalize with raw Nestor schema", () => {
+
+        const generatedEntity = getEntity(testNestorSchema)
+        
+        // Test with single entity
+        var normalizedFromNestorSchema = normalizeRaw(testAPIResponse, testNestorSchema, false)
+        var normalizedWNormalizrEntity = normalizeWithEntity(testAPIResponse, normalizrTestEntity);
+
+        expect(normalizedFromNestorSchema).toEqual(normalizedWNormalizrEntity);
+
+        // Test with array of entities
+        normalizedFromNestorSchema = normalizeRaw(testAPIResponse, testNestorSchema, true)
+        normalizedWNormalizrEntity = normalizeWithEntity(testAPIResponse, [normalizrTestEntity]);
+
+        expect(normalizedFromNestorSchema).toEqual(normalizedWNormalizrEntity);
     })
 })
 
