@@ -8,7 +8,7 @@ import {
     testNestorSchema,
     normalizrTestEntity,
     testAPIResponse
-} from "./data";
+} from "./data/data";
 
 const util = require("util");
 

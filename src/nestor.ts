@@ -51,7 +51,7 @@ export default class Nestor implements INestor {
         return normalize(data, schema);
     }
 
-    static nestorNormalize(data: object, schema: NestorSchema, array: boolean): NormalizerResult {
+    static normalizeRaw(data: object, schema: NestorSchema, array: boolean): NormalizerResult {
         return normalizeRaw(data, schema, array);
     }
 
