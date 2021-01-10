@@ -1,6 +1,6 @@
 import { 
     schema as NormalizerSchema, 
-    normalize
+    normalize as normalizr
 } from "normalizr";
 
 export type Entity = NormalizerSchema.Entity;
@@ -55,12 +55,12 @@ export function getEntity(raw: NestorSchema): Entity {
  * @returns: Normalized JSON data.
  */
 
-export function normalizeWithEntity(data: object, entity: Entity | Entity[]): NormalizerResult {
-    return normalize(data, entity)
+export function normalize(data: object, entity: Entity | Entity[]): NormalizerResult {
+    return normalizr(data, entity)
 }
 
 export function normalizeRaw(data: object, schema: NestorSchema, array: boolean): NormalizerResult {  
     const entity: NormalizerSchema.Entity = getEntity(schema);
-    return normalize(data, array ? [entity] : entity); 
+    return normalizr(data, array ? [entity] : entity); 
 }
 
