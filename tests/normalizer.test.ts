@@ -1,14 +1,14 @@
 import { 
     getEntity,
     normalizeRaw,
-    normalizeWithEntity
+    normalize
 } from "../src/normalizer";
 
 import { 
     testNestorSchema,
     normalizrTestEntity,
     testAPIResponse
-} from "./testdata";
+} from "./data";
 
 const util = require("util");
 
@@ -25,14 +25,14 @@ describe("Normalizer test", () => {
         const generatedEntity = getEntity(testNestorSchema)
         
         // Test with single entity
-        var normalizedWGeneratedEntity = normalizeWithEntity(testAPIResponse, generatedEntity);
-        var normalizedWNormalizrEntity = normalizeWithEntity(testAPIResponse, normalizrTestEntity);
+        var normalizedWGeneratedEntity = normalize(testAPIResponse, generatedEntity);
+        var normalizedWNormalizrEntity = normalize(testAPIResponse, normalizrTestEntity);
 
         expect(normalizedWGeneratedEntity).toEqual(normalizedWNormalizrEntity);
 
         // Test with array of entities
-        normalizedWGeneratedEntity = normalizeWithEntity(testAPIResponse, [generatedEntity]);
-        normalizedWNormalizrEntity = normalizeWithEntity(testAPIResponse, [normalizrTestEntity]);
+        normalizedWGeneratedEntity = normalize(testAPIResponse, [generatedEntity]);
+        normalizedWNormalizrEntity = normalize(testAPIResponse, [normalizrTestEntity]);
 
         expect(normalizedWGeneratedEntity).toEqual(normalizedWNormalizrEntity);
     })
@@ -43,13 +43,13 @@ describe("Normalizer test", () => {
         
         // Test with single entity
         var normalizedFromNestorSchema = normalizeRaw(testAPIResponse, testNestorSchema, false)
-        var normalizedWNormalizrEntity = normalizeWithEntity(testAPIResponse, normalizrTestEntity);
+        var normalizedWNormalizrEntity = normalize(testAPIResponse, normalizrTestEntity);
 
         expect(normalizedFromNestorSchema).toEqual(normalizedWNormalizrEntity);
 
         // Test with array of entities
         normalizedFromNestorSchema = normalizeRaw(testAPIResponse, testNestorSchema, true)
-        normalizedWNormalizrEntity = normalizeWithEntity(testAPIResponse, [normalizrTestEntity]);
+        normalizedWNormalizrEntity = normalize(testAPIResponse, [normalizrTestEntity]);
 
         expect(normalizedFromNestorSchema).toEqual(normalizedWNormalizrEntity);
     })
