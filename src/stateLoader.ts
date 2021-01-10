@@ -15,59 +15,6 @@ interface Response {
     data: object;
 }
 
-/**
- * Performs retrieval of data from
- * Sleipnir via API.
- * 
- * @returns: Sleipnir response as unnormalized JSON object. 
- */
-const getData = async (): Promise<Response> => await Sleipnir.getProjects()
-
-
-/**
- * Normalize data from Sleipnir with Normalizr.
- * 
- * Many APIs, public or not, return JSON data that has deeply nested objects. 
- * Using data in this kind of structure is often very difficult for JavaScript applications, 
- * especially those using Flux or Redux.
- * 
- * Normalizr is a small, but powerful utility for taking JSON with a schema definition 
- * and returning nested entities with their IDs, gathered in dictionaries.
- * 
- * @param data: JSON object data from Sleipnir.
- * @returns: Normalized JSON data.
- */
-
-export function normalizeData(data: object): NormalizerResult {  
-
-    const { Entity } = schema;
-
-    // Setup entity schemas
-    const organisation = new Entity("organisations")
-    const user = new Entity("users", {
-        organisation: organisation
-    })
-    const comment = new Entity("comments", {
-        user: user
-    })
-    const completion = new Entity("completions", {
-        user: user
-    })
-    const geoData = new Entity("geoData", {
-        addedBy: user,
-        intClosed: completion,
-        extClosed: completion,
-        comments: [comment]
-    })
-    const project = new Entity("projects", {
-        geoData: [geoData],
-        organisation: organisation
-    })
-
-    // Normalize that shit. 
-    return normalize(data, [project]) // [Entity] signifies data is and will be formatted in array
-}
-
 
 /**
  * Load ORM state from normalized data.

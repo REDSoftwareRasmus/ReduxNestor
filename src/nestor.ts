@@ -11,6 +11,10 @@ import {
     normalizeRaw
 } from "./normalizer";
 
+import { 
+    getORM
+} from "./orm";
+
 
 export interface ResponseEntity {
     key: string;
@@ -51,11 +55,13 @@ export default class Nestor implements INestor {
         return normalizeRaw(data, schema, array);
     }
 
-    static getEmptyState<I extends IndexedModelClasses>(orm: ORM<I>): OrmState<I> { 
+    static getEmptyState<I extends IndexedModelClasses<any>>(orm: ORM<I>): OrmState<I> { 
         return orm.getEmptyState()
     }
 
-    static getORM<I extends IndexedModelClasses>(models: Model[], reducerKey?: string): ORM<I> {}
+    static getORM<I extends IndexedModelClasses<any>, ModelNames extends keyof I = keyof I>(models: ReadonlyArray<I[ModelNames]>, reducerKey?: string): ORM<I> {
+        return getORM(models, reducerKey);
+    }
 
     static fill<I extends IndexedModelClasses>(data: NormalizerResult, orm: ORM<I>, map: EntityModelMap, order?: string[]): OrmState<I> {}
     

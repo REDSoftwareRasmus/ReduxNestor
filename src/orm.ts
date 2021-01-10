@@ -1,20 +1,42 @@
-import { ORM, OrmState } from "redux-orm";
-import { Project, GeoData, Comment, Completion, User, Organisation } from "./models";
+import { 
+    ORM, 
+    OrmState,
+    Model
+} from "redux-orm";
+import { 
+    IndexedModelClasses
+} from "redux-orm/ORM";
 
 
-// Define ORM DB schema
-const schema = {Project, GeoData, Comment, Completion, User, Organisation};
-export type Schema = typeof schema;
 
-// Define ORM instance
-export interface RootState { orm: OrmState<Schema>;}
-const orm = new ORM<Schema>({
-    // .orm refers to wherever the reducer is put during createStore
-    stateSelector: (state: RootState) => state.orm 
-});
+/**
+ * 
+ * @param models
+ * @param reducerKey
+ * @returns
+ */
 
-// Register used DB Models on ORM 
-orm.register(Project, GeoData, Comment, Completion, User, Organisation);
+export function getORM<I extends IndexedModelClasses<any>, ModelNames extends keyof I = keyof I>(
+    models: ReadonlyArray<I[ModelNames]>,
+    reducerKey?: string): ORM<I> {
+    
+    // Determine ORM options with 
+    // stateSelector. Key used as for registering 
+    // reducers in Redux setup. 
+    let orm: ORM<I>;
+    let ormOptions: object;
+    if (reducerKey !== undefined) {
+        interface RootState { [reducerKey: string]: OrmState<I>;}
+        ormOptions = (state: RootState) => state[reducerKey];
+    } else {
+        ormOptions = (state: OrmState<I>) => state
+    }
+    
+    // Instantiate ORM instance with Reducer key
+    orm = new ORM<I>(ormOptions);
+    
+    // Register used DB Models on ORM 
+    orm.register(...models);   
 
-export default orm;
-
+    return orm;
+}
